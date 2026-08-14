@@ -5,6 +5,8 @@ from django.views.decorators.http import require_GET
 
 from .models import PersonaInquiry
 from .services import get_or_create_inquiry
+from django.http import HttpResponse
+
 
 @login_required
 @require_GET
@@ -21,9 +23,9 @@ def verify_identity(request):
     return render(request, "persona_kyc/verify.html", context)
   
   
- def ping(request):
-    return HttpResponseBadRequest("ok")  
-  
+
+def ping(request):
+    return HttpResponse("ok")
   
    
   
