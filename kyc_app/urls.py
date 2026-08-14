@@ -9,5 +9,7 @@ app_name = "persona_kyc"
 urlpatterns = [
     path("", views.verify_identity, name="verify"),
     path("webhook/", persona_webhook, name="webhook"),
+
+    path("ping/", views.ping, name="ping"),
     
 ]
