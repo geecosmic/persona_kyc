@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Identity Verification</title>
+  <script src="https://cdn.withpersona.com/dist/persona-v{{ sdk_version }}.js" crossorigin="anonymous"></script>
+</head>
+<body style="font-family: Arial, sans-serif; text-align: center; margin-top: 80px;">
+
+  <h1>Account Verification Status: <strong>{{ kyc_status }}</strong></h1>
+
+  {% if kyc_status == "PENDING" or kyc_status == "CREATED" or kyc_status == "STARTED" %}
+    <p>Please complete your identity verification.</p>
+    <button id="start-kyc-btn"
+            style="padding: 12px 24px; font-size: 16px; background:#4A90E2; color:white; border:none; border-radius:4px; cursor:pointer;">
+      Verify Identity Now
+    </button>
+  {% elif kyc_status == "APPROVED" %}
+    <p style="color: green;">Your account is fully verified!</p>
+  {% else %}
+    <p style="color: red;">Verification status: {{ kyc_status }}. Please contact support if needed.</p>
+  {% endif %}
+
+  <script>
+    const btn = document.getElementById("start-kyc-btn");
+    if (btn) {
+      btn.addEventListener("click", () => {
+        const client = new Persona.Client({
+          templateId: "{{ template_id }}",
+          environmentId: "{{ environment_id }}",
+          referenceId: "{{ reference_id }}",
+          onReady: () => client.open(),
+          onCancel: () => console.log("User cancelled"),
+          onError: (err) => console.error(err),
+          onComplete: ({ inquiryId, status }) => {
+            // Optional: you can also hit your own endpoint here
+            console.log("Completed", inquiryId, status);
+            window.location.reload();
+          },
+        });
+      });
+    }
+  </script>
+</body>
+</html>
