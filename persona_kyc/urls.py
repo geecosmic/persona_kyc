@@ -21,7 +21,8 @@ from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('kyc/', include('kyc_app.urls', namespace='persona_kyc')),
+    # path('kyc/', include('kyc_app.urls', namespace='persona_kyc')),
+    path('', include('kyc_app.urls', namespace='persona_kyc')),
     
     # Login / Logout
     path("accounts/login/", auth_views.LoginView.as_view(
