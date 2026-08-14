@@ -21,7 +21,11 @@ def verify_identity(request):
     return render(request, "persona_kyc/verify.html", context)
   
   
+ def ping(request):
+    return HttpResponseBadRequest("ok")  
   
+  
+   
   
   
   
