@@ -7,7 +7,7 @@ from django.contrib.auth import views as auth_views
 app_name = "persona_kyc"
 
 urlpatterns = [
-    path("verify/", views.verify_identity, name="verify"),
+    path("", views.verify_identity, name="verify"),
     path("webhook/", persona_webhook, name="webhook"),
     
 ]
